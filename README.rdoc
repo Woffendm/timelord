@@ -1,35 +1,34 @@
-= Contacts plugin
+= Timelord plugin
 
 == Install
 
-* Copy redmine_contacts plugin to {RAILS_APP}/plugins on your redmine path
+* Copy timelord plugin to {RAILS_APP}/plugins on your redmine path
 * Run bundle install --without development test RAILS_ENV=production 
-* Run rake redmine:plugins NAME=redmine_contacts RAILS_ENV=production   
+* Run rake redmine:plugins NAME=timelord RAILS_ENV=production   
 
 == Uninstall
 
 <pre>
-rake redmine:plugins NAME=redmine_contacts VERSION=0 RAILS_ENV=production 
-rm -r plugins/redmine_contacts
+rake redmine:plugins NAME=timelord VERSION=0 RAILS_ENV=production 
+rm -r plugins/timelord
 </pre>
 
 == Requirements
  
 * Redmine 2.1.2+
 
-== Test
-rake db:drop  RAILS_ENV=test_sqlite3
-rake db:migrate db:migrate_plugins RAILS_ENV=test_sqlite3
-rake test:plugins:integration PLUGIN=redmine_contacts RAILS_ENV=test_sqlite3
-rake test:plugins:functionals PLUGIN=redmine_contacts RAILS_ENV=test_sqlite3
-rake test:plugins PLUGIN=redmine_contacts RAILS_ENV=test_sqlite3
+== Use
 
-rake db:reset  db:migrate_plugins test:plugins NAME=redmine_contacts RAILS_ENV=test
+This plugin is used for viewing the average time until the first response to an issue, and time until the issue is resolved. The time is measured in 'business time', defined as M-F 8am-5pm. This ensures that you don't have weekends and evenings count against you :)
 
-rake test:engines:all PLUGIN=redmine_contacts
+I use this plugin as an expansion for Redmine's existing REST API because this information isn't accessible via their default API. I am using this plugin to track support issue response/resolution times for a dashboard. 
 
-rake db:drop RAILS_ENV=test && rake db:migrate db:migrate_plugins RAILS_ENV=test && rake test:plugins PLUGIN=redmine_contacts RAILS_ENV=test
+After installing this plugin, you can visit localhost:3000/timelord to see a json representation of time until response and time until resolution.
 
-=== Test API
+If you want to refine what issues you're averaging, you can manipulate the URL to accept parameters (such as "localhost:3000/timelord?project_id=1" ). Here's a list of supported parameters:
+* limit :  Maximum number of issues processed (default is 200)
+* project_id :  Only take issues from this project
+* tracker_id :  Only take issues with this tracker
+* created_before :  Only take issues created before this DateTime
+* created_after  :  Only take issues created after this DateTime 
 
-curl -v -H "Content-Type: application/xml" -X POST --data "@contact.xml" -u admin:admin http://localhost:3000/contacts.xml
