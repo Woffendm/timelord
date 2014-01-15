@@ -1,0 +1,3 @@
+api.average_response_time       @result[:response]
+api.average_resolution_time     @result[:resolution]
+api.total_issues                @result[:total_issues]

@@ -23,9 +23,9 @@ This plugin is used for viewing the average time until the first response to an 
 
 I use this plugin as an expansion for Redmine's existing REST API because this information isn't accessible via their default API. I am using this plugin to track support issue response/resolution times for a dashboard. 
 
-After installing this plugin, you can visit localhost:3000/timelord to see a json representation of time until response and time until resolution.
+After installing this plugin, you can visit localhost:3000/timelord.json to see a json representation of time until response and time until resolution. If you are asked for authentication, you can use your regular credentials.
 
-If you want to refine what issues you're averaging, you can manipulate the URL to accept parameters (such as "localhost:3000/timelord?project_id=1" ). Here's a list of supported parameters:
+If you want to refine what issues you're averaging, you can manipulate the URL to accept parameters (such as "localhost:3000/timelord.json?project_id=1" ). Here's a list of supported parameters:
 * limit :  Maximum number of issues processed (default is 200)
 * project_id :  Only take issues from this project
 * tracker_id :  Only take issues with this tracker
