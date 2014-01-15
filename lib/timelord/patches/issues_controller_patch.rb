@@ -10,11 +10,9 @@ module Timelord
       end
 
       module InstanceMethods  
+        
         def swag
-          @issue = Issue.new
-          respond_to do |format|
-            format.html { render :action => 'new' }
-          end   
+          @yolo = "yolo"
         end 
 
       end

@@ -15,6 +15,8 @@ Redmine::Plugin.register :timelord do
 
   requires_redmine :version_or_higher => '2.1.2'
  
+  menu :top_menu, :timelord, { :controller => :timelord, :action => :index }, :caption => "Timelord", :after => :activity
+ 
 end
 
 
@@ -22,6 +24,6 @@ end
 Rails.configuration.to_prepare do
   require_dependency 'issue'
   require_dependency 'timelord/patches/issue_patch'
-  require_dependency 'issues_controller'
-  require_dependency 'timelord/patches/issues_controller_patch'
+  #require_dependency 'issues_controller'
+  #require_dependency 'timelord/patches/issues_controller_patch'
 end

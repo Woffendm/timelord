@@ -18,7 +18,8 @@ module Timelord
           issues = get_closed_issues options
 
           return {:response => time_until_response(issues),
-                  :resolution => time_until_resolution(issues) }
+                  :resolution => time_until_resolution(issues),
+                  :total_issues => issues.length }
 
         end
 
@@ -33,6 +34,7 @@ module Timelord
           issues = issues.where("issues.tracker_id = ?", options[:tracker_id]) if options[:tracker_id]
           issues = issues.where("issues.created_on < ?", options[:created_before]) if options[:created_before]
           issues = issues.where("issues.created_on > ?", options[:created_after]) if options[:created_after]
+          issues = issues.limit(options[:limit] ? options[:limit] : 200)
 
           return issues
 
@@ -54,7 +56,7 @@ module Timelord
             end
           end
 
-          return calc_return_value(total, issues)
+          return calc_return_value(total, issues.length)
 
         end
 
@@ -69,20 +71,19 @@ module Timelord
             total += issue.created_on.business_time_until issue.closed_on
           end
 
-          return calc_return_value(total, issues)
+          return calc_return_value(total, issues.length)
 
         end
 
 
 
 
-        def calc_return_value total, issues
+        def calc_return_value total, length
 
-          total = total / issues.length if issues.length > 0
+          total = total / length if length > 0
 
-          return {:hours => total / 3600, 
-                  :days => total / 32400,
-                  :total_issues => issues.length }
+          return {:hours => (total / 3600).round(1), 
+                  :days => (total / 32400).round(1) }
         end
         
       end

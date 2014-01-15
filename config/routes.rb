@@ -1,2 +1,2 @@
-match 'issues/swag' => 'issues#swag', :via => :get
+match 'timelord' => 'timelord#index', :via => :get
 
