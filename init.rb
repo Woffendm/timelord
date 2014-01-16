@@ -10,9 +10,7 @@ Redmine::Plugin.register :timelord do
 
   url 'https://github.com/Woffendm/timelord'
   author_url 'https://github.com/Woffendm'
- 
-  menu :top_menu, :timelord, { :controller => :timelord, :action => :index }, :caption => "Timelord", :after => :activity
- 
+  
 end
 
 
