@@ -14,6 +14,8 @@ module Timelord
       module ClassMethods
 
         def get_average_issue_times options = {}
+          
+          puts options
 
           issues = get_closed_issues options
 
@@ -82,8 +84,8 @@ module Timelord
 
           total = total / length if length > 0
 
-          return {:hours => (total / 3600).round(1), 
-                  :days => (total / 32400).round(1) }
+          return {:hours => ((total / 3600) * 10).round / 10.0, 
+                  :days => ((total / 32400) * 10).round / 10.0 }
         end
         
       end
